@@ -1,8 +1,7 @@
 import requests
 import requests
-import pandas as pd
 from bs4 import BeautifulSoup
-import selenium
+
 
 
 
@@ -17,13 +16,12 @@ def testeSite():
                 print(">>  Falha na requisição  <<")    
         else:
                 print("Site ok. Entrando.")
-                print("Site ok. Entrando..")  
-                print("Site ok. Entrando...") 
+
                 html_content = html.content
         soup = BeautifulSoup(html_content, "html.parser")
-        indice = soup.findAll('ul')
+        indiceGeral = soup.find('div',attrs={'class':'toc'})
+        indice = indiceGeral.find('ul')
+
         
-        return indice
+        return indice.text
 print(testeSite())
-
-
