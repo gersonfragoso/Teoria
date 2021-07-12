@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
-def testeSite(link):
+def testeSite(link): #Testando se tem conexão com a intenet ou se o site está online
         ehValido = False       
         html = requests.get(link)        
         if (html.status_code != 200):
@@ -13,12 +13,7 @@ def testeSite(link):
                 print(">> Conexão OK <<")
                 return ehValido == True  
        
-
-  
-        
-       
-
-def testeLink(link):       
+def testeLink(link): #Testando se o link é da wikipedia
         ehValido = False
         if re.match('( *?https{0,1}:\/\/?...*?wikipedia.org\/wiki\/*| *?...wikipedia.org\/wiki\/)', link):
                 print(">>  Link Valido  <<")
@@ -28,12 +23,10 @@ def testeLink(link):
                 return ehValido == False
        
 
-
-#pegando url de teste
 requestOk = False
 ehWiki = False
 while True:
-        artigoDesejado = str(input('digite sua url: '))
+        artigoDesejado = str(input('digite sua url: ')) #pegando url
         ehWiki = testeLink(artigoDesejado)
         if not ehWiki:
                 requestOk = testeSite(artigoDesejado)
@@ -42,11 +35,25 @@ while True:
         else:
                 print('Verifique o link e tente novamente')
 
-html = requests.get(artigoDesejado)
-html_content = html.content
-soup = BeautifulSoup(html_content, "html.parser")
-indiceGeral = soup.find('div',attrs={'class':'toc'})
-indice = indiceGeral.find('ul')
+qualSeuDesejo = int(input('Você deseja buscar por: \n'
++'1 - Indices \n'
++'2 - Referencias \n'
++'3 - Imagens \n'))
 
-print(' Listando Indices')
-print(indice.text)
+
+if qualSeuDesejo == 1 :
+        html = requests.get(artigoDesejado)
+        html_content = html.content
+        soup = BeautifulSoup(html_content, "html.parser")
+        #soup.find_all()
+        indiceGeral = soup.find('div',attrs={'class':'toc'})
+        indice = indiceGeral.find('ul')
+
+        print(' Listando Indices')
+        print(indice.text)
+
+if qualSeuDesejo == 2 :
+       print('nada ainda')
+
+if qualSeuDesejo == 3 :
+        print('nada ainda')
