@@ -3,9 +3,6 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
-def RemoveRepetidosLista(lista):
-        return [item for item in lista if item not in locals()['_[1]']]
-
 def testeSite(link): #Testando se tem conexão com a intenet ou se o site está online
         ehValido = False       
         html = requests.get(link)        
@@ -25,11 +22,10 @@ def testeLink(link): #Testando se o link é da wikipedia
                 print(">>       Link Invalido        <<")
                 return ehValido == False
        
-
 requestOk = False
 ehWiki = False
 while True:
-        artigoDesejado = str(input('digite sua url: ')) #pegando url
+        artigoDesejado = str(input('    Digite sua url: ')) #pegando url
         ehWiki = testeLink(artigoDesejado)
         if not ehWiki:
                 requestOk = testeSite(artigoDesejado)
@@ -55,7 +51,6 @@ if qualSeuDesejo == 1 :
         indicesSemSimbolos = re.sub('[<>]', '', str(indices))
         print(indicesSemSimbolos)
 
-
 if qualSeuDesejo == 2 :
        artigo = soup.find_all('a',  {"class":"mw-redirect"}) 
        linkRegex = re.compile(r'\/wiki\/\S*' ) 
@@ -63,9 +58,7 @@ if qualSeuDesejo == 2 :
        linksemAspas = re.sub('["]', '', str(link))
        linkSemRepeticao =  list(set(linksemAspas))
        print(linkSemRepeticao)
-      
-       
-
+             
 if qualSeuDesejo == 3 :
        artigo = soup.find_all('div',  {"id": "bodyContent"}) 
        imgRegex = re.compile(r'\w+\.jpg|\:\w+\.png|\w+\.svg' ) 
