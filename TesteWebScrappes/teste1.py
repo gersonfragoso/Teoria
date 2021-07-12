@@ -1,3 +1,4 @@
+
 import requests
 import requests
 from bs4 import BeautifulSoup
@@ -31,24 +32,49 @@ def testeLink(link):
 
 def pegandoIndici():
 
-    requestOk = False
-    ehWiki = False
-    while True:
-            artigoDesejado = str(input('digite sua url: '))
-            ehWiki = testeLink(artigoDesejado)
-            if not ehWiki:
-                    requestOk = testeSite(artigoDesejado)
-            if not requestOk and not ehWiki:
-                    break     
-            else:
-                    print('Verifique o link e tente novamente')
+        requestOk = False
+        ehWiki = False
+        while True:
+                artigoDesejado = str(input('digite sua url: '))
+                ehWiki = testeLink(artigoDesejado)
+                if not ehWiki:
+                        requestOk = testeSite(artigoDesejado)
+                if not requestOk and not ehWiki:
+                        break     
+                else:
+                        print('Verifique o link e tente novamente')
 
-    html = requests.get(artigoDesejado)
-    html_content = html.content
-    soup = BeautifulSoup(html_content, "html.parser")
-    indiceGeral = soup.find('div',attrs={'class':'toc'})
-    indice = indiceGeral.find('ul')
+        html = requests.get(artigoDesejado)
+        html_content = html.content
+        soup = BeautifulSoup(html_content, "html.parser")
+        indiceGeral = soup.find('div',attrs={'class':'toc'})
+        indice = indiceGeral.find('ul')
 
-    print(' Listando Indices')
-    print(indice.text)
-print(pegandoIndici())
+        print(' Listando Indices')
+        print(indice.text)
+
+def pegandoLinks():
+        requestOk = False
+        ehWiki = False
+        while True:
+                artigoDesejado = str(input('digite sua url: '))
+                ehWiki = testeLink(artigoDesejado)
+                if not ehWiki:
+                        requestOk = testeSite(artigoDesejado)
+                if not requestOk and not ehWiki:
+                        break     
+                else:
+                        print('Verifique o link e tente novamente')
+        html = requests.get(artigoDesejado)
+        html_content = html.content
+        soup = BeautifulSoup(html_content, "html.parser")
+        Geral = soup.findAll('div',attrs={"class":"mw-parser-output"}) 
+        
+        for variavel in Geral:
+                variavel = Geral.find('a')
+                print(variavel["url"])
+                
+
+
+#print(pegandoIndici())
+print(pegandoLinks())
