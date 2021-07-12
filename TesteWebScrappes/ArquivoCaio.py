@@ -46,11 +46,11 @@ def main():
         soup = BeautifulSoup(html_content, "html.parser")
 
         if qualSeuDesejo == 1 :
-                indiceGeral = soup.find_all('span',{'class':'toctext'})
-                indicesRegex = re.compile(r'\>\w*\<' ) 
+                indiceGeral = soup.find_all('span',{ 'class':'toctext'})
+                indicesRegex = re.compile(r'\"\>(.+?)\<\/' ) 
                 indices = re.findall(indicesRegex , str(indiceGeral))
                 indicesSemSimbolos = re.sub('[<>]', '', str(indices))
-                print(indicesSemSimbolos)
+                print(indices)
 
         if qualSeuDesejo == 2 :
                 artigo = soup.find_all('a',  {"class":"mw-redirect"}) 
@@ -69,8 +69,8 @@ def main():
 main()
 qualSeuDesejo = str(input('     Deseja fazer outra busca? S/N \n'))
 
-if qualSeuDesejo == "S" :
-        main()   
-          
-if qualSeuDesejo == 'N' :
-        main()
+if qualSeuDesejo == 'S' or qualSeuDesejo ==  's' :
+           main()   
+
+if qualSeuDesejo == 'N' or qualSeuDesejo == 'n' :
+           print('tchau')          
