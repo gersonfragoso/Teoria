@@ -54,10 +54,9 @@ def main():
 
         if qualSeuDesejo == 2 :
                 artigo = soup.find_all('a',  {"class":"mw-redirect"}) 
-                linkRegex = re.compile(r'\/wiki\/\w*' ) 
+                linkRegex = re.compile(r'\/wiki\/\S*' ) 
                 link = re.findall(linkRegex , str(artigo))
                 linksemAspas = re.sub('["]', '', str(link))
-                linkSemRepeticao =  list(set(linksemAspas))
                 print(linksemAspas)
                 
         if qualSeuDesejo == 3 :
